@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import useWindowsSize from '../hooks/useWindowsSize';
 
 export const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
+    const windowSize = useWindowsSize();
+
+    useEffect(() => {
+        if (windowSize.width >= 1024) {
+            setShowMenu(true);
+        } else {
+            setShowMenu(false);
+        }
+    }, [windowSize]);
 
     const handleMenuClick = () => {
         setShowMenu(!showMenu);
