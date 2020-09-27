@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { HeroUrls } from './HeroUrls';
 import { Toggle } from './Toggle';
+import { LoadingIndicator } from './LoadingIndicator';
+import { Link } from 'react-router-dom';
 
 export const HeroBio = ({ match }) => {
     const [data, setData] = useState(null);
@@ -32,7 +34,9 @@ export const HeroBio = ({ match }) => {
     }, [baseUrl]);
 
     return (
-        isLoading ? <p>Loading...</p> : data &&
+        isLoading ? 
+        <LoadingIndicator isLoading={isLoading} />
+        : data &&
         <div className="border m-3 border-gray-400 rounded-b-md">
             <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic shadow">Character Profile:</h1>
             <img src={`${data.thumbnail.path}.${data.thumbnail.extension}`}></img>
@@ -57,10 +61,10 @@ export const HeroBio = ({ match }) => {
                     data.comics.items.map(comic =>
                         <div key={comic.resourceURI}>
                             <p className="font-bold text-gray-700">{comic.name}</p>
-                            <a  
+                            <Link  
                                 className="text-blue-400"
-                                href={comic.resourceURI}
-                            >See comic</a>
+                                to={"/comics/" + comic.resourceURI.split("/comics/")[1]}
+                            >See comic</Link>
                         </div>
                     )
                 }
