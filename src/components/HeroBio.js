@@ -45,6 +45,8 @@ export const HeroBio = ({ match }) => {
             <p className="p-2 text-gray-600">{data.description || "No description available"}</p>
             <Toggle title="Stories" className="text-3xl inline text-gray-700 uppercase p-2 font-comic">
                 {
+                    data.stories.items.length > 0 
+                    ?
                     data.stories.items.map(story =>
                         <div key={story.resourceURI}>
                             <p className="font-bold text-gray-700">{story.name}</p>
@@ -54,10 +56,14 @@ export const HeroBio = ({ match }) => {
                                 >See story</a>
                         </div>
                     )
+                    :
+                    <p>No data available</p>
                 }
             </Toggle>
             <Toggle title="Comics" className="text-3xl text-gray-700 uppercase p-2 font-comic">
                 {
+                    data.comics.items.length > 0 
+                    ?
                     data.comics.items.map(comic =>
                         <div key={comic.resourceURI}>
                             <p className="font-bold text-gray-700">{comic.name}</p>
@@ -67,6 +73,8 @@ export const HeroBio = ({ match }) => {
                             >See comic</Link>
                         </div>
                     )
+                    :
+                    <p>No data available</p>
                 }
             </Toggle>
         </div>

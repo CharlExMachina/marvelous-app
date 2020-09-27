@@ -13,7 +13,7 @@ const useAxiosRequest = (urlRoute, params) => {
         }
     );
 
-    const requestParams = {"apikey": publicKey, ...params}
+    const requestParams = {apikey: publicKey, ...params}
 
     useEffect(() => {
         setPayload({
