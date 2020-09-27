@@ -37,12 +37,20 @@ export const NavBar = () => {
                     <div className="text-sm lg:flex-grow">
                     </div>
                     <div>
-                        <Link to="/characters" onClick={handleMenuClick} className="block font-bold mt-4 lg:inline-block lg:mt-0 text-marvelWhite hover:text-white mr-4">
+                        <Link 
+                            to="/characters" 
+                            onClick={handleMenuClick} 
+                            className="block font-bold mt-4 lg:inline-block lg:mt-0 text-marvelWhite hover:text-white mr-4"
+                        >
                             Characters
                         </Link>
-                        <a href="#responsive-header" className="block font-bold mt-4 lg:inline-block lg:mt-0 text-marvelWhite hover:text-white mr-4">
+                        <Link 
+                            to="/comics" 
+                            onClick={handleMenuClick} 
+                            className="block font-bold mt-4 lg:inline-block lg:mt-0 text-marvelWhite hover:text-white mr-4"
+                        >
                             Comics
-                        </a>
+                        </Link>
                         <a href="#responsive-header" className="block font-bold mt-4 lg:inline-block lg:mt-0 text-marvelWhite hover:text-white">
                             Stories
                         </a>

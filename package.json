@@ -10,11 +10,14 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
+    "moment": "^2.29.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "tailwindcss": "^1.8.10"
+    "react-spinners": "^0.9.0",
+    "tailwindcss": "^1.8.10",
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "build:css": "tailwindcss build src/tailwind.css -o src/index.css",
