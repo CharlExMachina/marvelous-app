@@ -1,64 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { LoadingIndicator } from './LoadingIndicator';
-import { ComicDates } from './ComicDates';
-import { ComicUrls } from './ComicUrls';
+import { v4 as uuidv4 } from 'uuid';
 import { Toggle } from './Toggle';
 import { Link } from 'react-router-dom';
-import { ComicPrices } from './ComicPrices';
+import useAxiosRequest from '../hooks/useAxiosRequest';
+import { StoryOriginalIssue } from './StoryOriginalIssue';
 
 export const StoryPage = ({match}) => {
-    const [data, setData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const publicKey = "badd148cc7d5975dc382dfabd381d794";
-    const baseUrl = "https://gateway.marvel.com/v1/public/";
+    const serverResponse = useAxiosRequest(`stories/${match.params.id}`);
+    let story = null;
 
-    useEffect(() => {
-        const axiosInstance = axios.create({
-        baseURL: baseUrl,
-        params: {
-            "apikey": publicKey,
-            "limit": 20
-        },
-            timeout: 10000,
-            method: 'get',
-            responseType: 'json',
-        });
-        axiosInstance.get(`comics/${match.params.id}`)
-        .then(response => {
-        setData(response.data.data.results[0]);
-        setIsLoading(false);
-        console.log(response.data.data.results[0]);
-        })
-        .catch(error => console.log(error));
-
-    }, [baseUrl]);
+    if (serverResponse.data) {
+        story = serverResponse.data.results[0];
+    }
 
     return (
-        isLoading ? 
-        <LoadingIndicator isLoading={isLoading} />
-        : data &&
+        serverResponse.loading ? 
+        <LoadingIndicator isLoading={serverResponse.loading} />
+        : story &&
         <div className="border m-3 border-gray-400 rounded-b-md">
-            <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic shadow">{data.title}</h1>
-            <img src={`${data.thumbnail.path}.${data.thumbnail.extension}`}></img>
-            <ComicDates dateList={data.dates} />
-            <ComicUrls urlList={data.urls} />
-            {/* <HeroUrls urlList={data.urls} /> */}
-            <p className="p-2 text-gray-600">{data.description || "No description available"}</p>
-            {
-                data.issueNumber > 0 
-                ? 
-                <h3 className="p-2 text-gray-700"><span className="text-gray-700 font-comic">Issue number:</span> #{data.issueNumber}</h3>
-                :
-                <p className="px-2">Issue number not available</p>
-            }
-            <h3 className="px-2 font-bold text-lg text-gray-700">Prices:</h3>
-            <ComicPrices prices={data.prices} />
+            <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic shadow">{story.title}</h1>
+            <div className="px-1">
+                <h2 className="inline text-lg font-bold text-gray-700">Created by: </h2>
+                {
+                    story.creators.items
+                    .map((creator, index, arr) => {
+                        if (index >= arr.length - 1) {
+                            return <span key={uuidv4()}>{creator.name}</span>
+                        } else {
+                            return <span key={uuidv4()}>{creator.name}, </span>
+                        }
+                    })
+                }
+            </div>
+            <div className="px-1">
+                <h2 className="inline text-lg font-bold text-gray-700">From comic: </h2>
+                <StoryOriginalIssue issue={{...story.originalIssue, id: story.originalIssue.resourceURI.split("/comics/")[1]}} />
+            </div>
             <Toggle title="Featured characters" className="text-3xl inline text-gray-700 uppercase p-2 font-comic">
                 {
-                    data.characters.items.length > 0 
+                    story.characters.items.length > 0 
                     ?
-                    data.characters.items.map(character =>
+                    story.characters.items.map(character =>
                         <div key={character.resourceURI}>
                             <p className="font-bold text-gray-700">{character.name}</p>
                             <Link  
@@ -68,9 +51,9 @@ export const StoryPage = ({match}) => {
                         </div>
                     )
                     :
-                    <p>No data available</p>
+                    <p>No story available</p>
                 }
             </Toggle>
         </div>
-    )
+    );
 }

@@ -8,7 +8,7 @@ import { ComicPrices } from './ComicPrices';
 import useAxiosRequest from '../hooks/useAxiosRequest';
 
 export const ComicPage = ({match}) => {
-    let serverResponse = useAxiosRequest(`comics/${match.params.id}`);
+    const serverResponse = useAxiosRequest(`comics/${match.params.id}`);
     let comic = null;
 
     if (serverResponse.data) {
@@ -18,13 +18,13 @@ export const ComicPage = ({match}) => {
     return (
         serverResponse.loading ? 
         <LoadingIndicator isLoading={serverResponse.loading} />
-        : comic &&
+        : 
+        comic &&
         <div className="border m-3 border-gray-400 rounded-b-md">
             <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic shadow">{serverResponse.data.title}</h1>
             <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}></img>
             <ComicDates dateList={comic.dates} />
             <ComicUrls urlList={comic.urls} />
-            {/* <HeroUrls urlList={data.urls} /> */}
             <p className="p-2 text-gray-600">{serverResponse.data.description || "No description available"}</p>
             {
                 serverResponse.data.issueNumber > 0 
@@ -53,5 +53,5 @@ export const ComicPage = ({match}) => {
                 }
             </Toggle>
         </div>
-    )
+    );
 }

@@ -16,7 +16,7 @@ export const ComicGallery = () => {
     } else {
         content = serverResponse.data && serverResponse.data.results.map(comicInfo => 
             <ComicCard key={comicInfo.id} info={comicInfo} />    
-        )
+        );
     }
 
     return (

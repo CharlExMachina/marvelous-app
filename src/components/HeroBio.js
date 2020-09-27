@@ -50,10 +50,10 @@ export const HeroBio = ({ match }) => {
                     data.stories.items.map(story =>
                         <div key={story.resourceURI}>
                             <p className="font-bold text-gray-700">{story.name}</p>
-                            <a  
+                            <Link  
                                 className="text-blue-400"
-                                href={story.resourceURI}
-                                >See story</a>
+                                to={"/stories/" + story.resourceURI.split("/stories/")[1]}
+                                >See story</Link>
                         </div>
                     )
                     :

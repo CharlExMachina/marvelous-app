@@ -7,6 +7,7 @@ import { HeroGallery } from './components/HeroGallery';
 import { HeroBio } from './components/HeroBio';
 import { ComicPage } from './components/ComicPage';
 import { ComicGallery } from './components/ComicGallery';
+import { StoryPage } from './components/StoryPage';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Route path="/characters/:id" component={HeroBio} />
           <Route path="/comics" exact component={ComicGallery} />
           <Route path="/comics/:id" component={ComicPage} />
+          {/* <Route path="/stories" exact component={ComicGallery} /> */}
+          <Route path="/stories/:id" component={StoryPage} />
           <Route path="/" component={HomePage} />
       </Switch>
       </div>
