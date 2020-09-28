@@ -2,9 +2,10 @@ import React from 'react';
 import useAxiosRequest from '../hooks/useAxiosRequest';
 import { LoadingIndicator } from './LoadingIndicator';
 
-export const StoryOriginalIssue = ({issue}) => {
+export const StoryOriginalIssue = ({issue = null}) => {
     const serverResponse = useAxiosRequest(`comics/${issue.id}`);
     let comic = null;
+    let displayCover = false;
 
     if (serverResponse.data) {
         comic = serverResponse.data.results[0];
@@ -14,10 +15,10 @@ export const StoryOriginalIssue = ({issue}) => {
         <div>
             <span>{issue.name}</span>
             {
-                serverResponse.loading ? 
+                serverResponse.loading && displayCover ? 
                     <LoadingIndicator /> 
                     : 
-                    comic && <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}></img>
+                    comic && displayCover && <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}></img>
             }
         </div>
     );

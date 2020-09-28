@@ -51,9 +51,13 @@ export const NavBar = () => {
                         >
                             Comics
                         </Link>
-                        <a href="#responsive-header" className="block font-bold mt-4 lg:inline-block lg:mt-0 text-marvelWhite hover:text-white">
+                        <Link 
+                            to="/stories" 
+                            onClick={handleMenuClick}
+                            className="block font-bold mt-4 lg:inline-block lg:mt-0 text-marvelWhite hover:text-white"
+                        >
                             Stories
-                        </a>
+                        </Link>
                     </div>
                 </div>
             }
