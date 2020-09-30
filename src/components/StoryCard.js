@@ -4,8 +4,7 @@ import { StoryOriginalIssue } from './StoryOriginalIssue';
 
 export const StoryCard = ({info}) => {
     return (
-        <div className="border m-3 border-gray-400 rounded-b-md">
-            {/* <img src={`${info.thumbnail.path}.${info.thumbnail.extension}`}></img> */}
+        <div className="border m-3 border-gray-400 rounded-lg overflow-hidden">
             <h2 className="text-lg text-gray-700 uppercase p-2 font-comic">Description</h2>
             <p className="px-2 text-gray-600">{info.title}</p>
             <h2 className="text-lg text-gray-700 uppercase p-2 font-comic">From:</h2>
