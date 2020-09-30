@@ -21,16 +21,23 @@ export const StoryPage = ({match}) => {
         <div className="border m-3 border-gray-400 rounded-b-md">
             <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic shadow">{story.title}</h1>
             <div className="px-1">
-                <h2 className="inline text-lg font-bold text-gray-700">Created by: </h2>
                 {
-                    story.creators.items
-                    .map((creator, index, arr) => {
-                        if (index >= arr.length - 1) {
-                            return <span key={uuidv4()}>{creator.name}</span>
-                        } else {
-                            return <span key={uuidv4()}>{creator.name}, </span>
+                    story.creators.items.length > 0 ?
+                    <>
+                        <h2 className="inline text-lg font-bold text-gray-700">Created by: </h2>
+                        {
+                            story.creators.items
+                            .map((creator, index, arr) => {
+                                if (index >= arr.length - 1) {
+                                    return <span key={uuidv4()}>{creator.name}</span>
+                                } else {
+                                    return <span key={uuidv4()}>{creator.name}, </span>
+                                }
+                            })
                         }
-                    })
+                    </>
+                    :
+                    <p className="font-bold">No information available about the creators of this story</p>
                 }
             </div>
             <div className="px-1">
@@ -51,7 +58,7 @@ export const StoryPage = ({match}) => {
                         </div>
                     )
                     :
-                    <p>No story available</p>
+                    <p>No information available</p>
                 }
             </Toggle>
         </div>
