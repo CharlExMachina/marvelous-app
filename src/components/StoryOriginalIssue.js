@@ -13,16 +13,18 @@ export const StoryOriginalIssue = ({issue}) => {
 
     return (
         <div>
-            <h3 className="p-2 font-bold text-gray-700">
+            <p className="pb-2">
                 {issue.name}
                 <Link className="px-1 text-blue-700" to={`/comics/${issue.resourceURI.split("/comics/")[1]}`}>(See comic)</Link>
-            </h3>
+            </p>
+            <div>
             {
                 serverResponse.loading ? 
-                    <LoadingIndicator /> 
-                    : 
-                    comic && <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}></img>
+                <LoadingIndicator /> 
+                : 
+                comic && <img className="w-full object-contain" style={{height: 550}} src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}></img>
             }
+            </div>
         </div>
     );
 }

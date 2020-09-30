@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import useWindowsSize from '../hooks/useWindowsSize';
+import useMountEffect from '../hooks/useMountEffect';
 
 export const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const windowSize = useWindowsSize();
+    const menuShowThreshold = 1024;
 
-    useEffect(() => {
-        if (windowSize.width >= 1024) {
+    const adjustNavbarMenu = () => {
+        if (windowSize.width >= menuShowThreshold) {
             setShowMenu(true);
         } else {
             setShowMenu(false);
         }
+    }
+
+    // To correctly display the navbar on reload
+    useMountEffect(() => {
+        adjustNavbarMenu();
+    });
+
+    useEffect(() => {
+        adjustNavbarMenu();
     }, [windowSize]);
 
     const handleMenuClick = () => {
-        setShowMenu(!showMenu);
+        if (windowSize.width < menuShowThreshold) {
+            setShowMenu(!showMenu);
+        }
     }
 
     return (

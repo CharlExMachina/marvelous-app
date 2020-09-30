@@ -19,48 +19,50 @@ export const StoryPage = ({match}) => {
         <LoadingIndicator isLoading={serverResponse.loading} />
         : story &&
         <div className="border m-3 border-gray-400 rounded-b-md">
-            <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic shadow">{story.title}</h1>
-            <div className="px-1">
-                {
-                    story.creators.items.length > 0 ?
-                    <>
-                        <h2 className="inline text-lg font-bold text-gray-700">Created by: </h2>
+            <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic">{story.title}</h1>
+            <div className="grid lg:grid-cols-2 lg:gap-10">
+                <div className="px-1">
+                    {
+                        story.creators.items.length > 0 ?
+                        <>
+                            <h2 className="inline text-lg font-bold text-gray-700">Created by: </h2>
+                            {
+                                story.creators.items
+                                .map((creator, index, arr) => {
+                                    if (index >= arr.length - 1) {
+                                        return <span key={uuidv4()}>{creator.name}</span>
+                                    } else {
+                                        return <span key={uuidv4()}>{creator.name}, </span>
+                                    }
+                                })
+                            }
+                        </>
+                        :
+                        <p className="font-bold">No information available about the creators of this story</p>
+                    }
+                    <h2 className="pt-3 text-lg font-bold text-gray-700">From comic: </h2>
+                    <StoryOriginalIssue issue={{...story.originalIssue, id: story.originalIssue.resourceURI.split("/comics/")[1]}} />
+                </div>
+                <div>
+                    <Toggle title="Featured characters" className="text-3xl inline text-gray-700 uppercase p-2 font-comic">
                         {
-                            story.creators.items
-                            .map((creator, index, arr) => {
-                                if (index >= arr.length - 1) {
-                                    return <span key={uuidv4()}>{creator.name}</span>
-                                } else {
-                                    return <span key={uuidv4()}>{creator.name}, </span>
-                                }
-                            })
+                            story.characters.items.length > 0 
+                            ?
+                            story.characters.items.map(character =>
+                                <div key={character.resourceURI}>
+                                    <p className="font-bold text-gray-700">{character.name}</p>
+                                    <Link  
+                                        className="text-blue-400"
+                                        to={"/characters/" + character.resourceURI.split("/characters/")[1]}
+                                        >Read bio</Link>
+                                </div>
+                            )
+                            :
+                            <p>No information available</p>
                         }
-                    </>
-                    :
-                    <p className="font-bold">No information available about the creators of this story</p>
-                }
+                    </Toggle>
+                </div>
             </div>
-            <div className="px-1">
-                <h2 className="inline text-lg font-bold text-gray-700">From comic: </h2>
-                <StoryOriginalIssue issue={{...story.originalIssue, id: story.originalIssue.resourceURI.split("/comics/")[1]}} />
-            </div>
-            <Toggle title="Featured characters" className="text-3xl inline text-gray-700 uppercase p-2 font-comic">
-                {
-                    story.characters.items.length > 0 
-                    ?
-                    story.characters.items.map(character =>
-                        <div key={character.resourceURI}>
-                            <p className="font-bold text-gray-700">{character.name}</p>
-                            <Link  
-                                className="text-blue-400"
-                                to={"/characters/" + character.resourceURI.split("/characters/")[1]}
-                                >Read bio</Link>
-                        </div>
-                    )
-                    :
-                    <p>No information available</p>
-                }
-            </Toggle>
         </div>
     );
 }
