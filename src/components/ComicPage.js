@@ -31,7 +31,7 @@ export const ComicPage = ({match}) => {
                 ? 
                 <h3 className="p-2 text-gray-700"><span className="text-gray-700 font-comic">Issue number:</span> #{serverResponse.data.issueNumber}</h3>
                 :
-                <p className="px-2">Issue number not available</p>
+                <p className="px-2 font-bold">Issue number not available</p>
             }
             <h3 className="px-2 font-bold text-lg text-gray-700">Prices:</h3>
             <ComicPrices prices={comic.prices} />
