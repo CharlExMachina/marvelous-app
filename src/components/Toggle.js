@@ -13,7 +13,7 @@ export const Toggle = ({title, className, ...props}) => {
 
     return (
         <div>
-            <a href="/#" onClick={handleToggle} className={className}>
+            <a href="/#" onClick={handleToggle} className="text-3xl text-gray-700 uppercase p-2 font-comic">
                 {title}
                 <span>
                     <FontAwesomeIcon className="text-gray-700 px-2 pt-4" style={{fontSize: "1.7em"}} icon={isExtended ? faCaretUp : faCaretDown} />

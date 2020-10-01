@@ -5,7 +5,7 @@ export const ComicCard = ({info}) => {
     return (
         <div className="border m-3 md:mx-10 border-gray-400 rounded-lg overflow-hidden shadow-md">
             <div className="flex md:justify-center">
-                <img className="w-full object-cover" src={`${info.thumbnail.path}.${info.thumbnail.extension}`}></img>
+                <img className="object-left" style={{height: 537}} src={`${info.thumbnail.path}.${info.thumbnail.extension}`}></img>
             </div>
             <h2 className="text-3xl text-gray-700 uppercase p-2 font-comic">{info.title}</h2>
             <p className="p-3 text-gray-600">{info.description || "No description available"}</p>
