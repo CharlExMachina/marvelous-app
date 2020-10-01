@@ -29,20 +29,21 @@ const useAxiosRequest = (urlRoute, params) => {
             method: 'get',
             responseType: 'json',
         });
+
         axiosInstance.get(urlRoute)
         .then(response => {
-            console.log(response);
-        setPayload({
-            loading: false,
-            data: response.data.data,
-            error: false
+            // console.log(response);
+            setPayload({
+                loading: false,
+                data: response.data.data,
+                error: false
+            })
         })
-    })
-    .catch(error => setPayload({
-        loading: false,
-        data: null,
-        error: true
-    }));
+        .catch(error => setPayload({
+            loading: false,
+            data: null,
+            error: true
+        }));
 
     }, [urlRoute]);
 

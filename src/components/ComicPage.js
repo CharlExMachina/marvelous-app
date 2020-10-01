@@ -24,7 +24,7 @@ export const ComicPage = ({match}) => {
             <h1 className="text-4xl text-gray-700 uppercase p-1 font-comic">{comic.title}</h1>
             <div className="grid lg:grid-cols-2 lg:gap-10">
                 <div>
-                    <img className="lg:h-28 lg:object-contain" src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}></img>
+                    <img className="lg:h-28 lg:px-3 lg:object-contain" src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}></img>
                 </div>
                 <div>
                     <ComicDates dateList={comic.dates} />
