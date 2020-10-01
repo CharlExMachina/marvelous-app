@@ -24,6 +24,7 @@
     "watch:css": "tailwindcss build src/tailwind.css -o src/index.css -w",
     "start": "yarn build:css && react-scripts start",
     "build": "yarn build:css && react-scripts build",
+    "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
